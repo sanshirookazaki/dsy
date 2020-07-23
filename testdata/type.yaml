@@ -1,0 +1,21 @@
+kind: Type
+key: ID
+keys:
+  - KeyType
+
+entities:
+- ID: 1
+  IntType: 123456
+  FloatType: 0.123456
+  StringType: hello world
+  BoolType: false
+  NullType: null
+  ArrayType: [1, 2, 3]
+  EmbedType: {"String": "value", "Integer": 123456}
+  TimeType: 2006-01-02T15:04:05+07:00
+  GeoPointType: {"Lat": 35.6809591, "Lng": 139.7673068}
+  KeyType:
+    - kind: Parent
+      id: 123456
+    - kind: Child
+      name: key
