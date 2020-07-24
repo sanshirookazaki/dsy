@@ -1,10 +1,6 @@
 name: test
 on: [push, pull_request]
 
-env:
-  DATASTORE_PROJECT_ID: ${{ secrets.DATASTORE_PROJECT_ID }}
-  DATASTORE_EMULATOR_HOST: localhost:8081
-
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -18,12 +14,15 @@ jobs:
           go-version: '^1.13.1'
       - name: Run test
         run: CGO_ENABLED=0 go test -v ./test
+        env:
+          DATASTORE_PROJECT_ID: ${{ secrets.DATASTORE_PROJECT_ID }}
+          DATASTORE_EMULATOR_HOST: localhost:8081
 
     services:
       datastore:
         image: singularities/datastore-emulator
         env:
           DATASTORE_LISTEN_ADDRESS: 0.0.0.0:8081
-          DATASTORE_PROJECT_ID: ${ DATASTORE_PROJECT_ID }
+          DATASTORE_PROJECT_ID: ${{ secrets.DATASTORE_PROJECT_ID }}
         ports:
           - 8081:8081
