@@ -71,7 +71,7 @@ func TestType(t *testing.T) {
 		KeyType:      ck,
 	}
 
-	if !cmp.Equal(exts.EmbedType, ts.EmbedType) {
+	if !cmp.Equal(exts, ts) {
 		t.Fatalf("testing: unexpected value of Types %v %v", exts, ts)
 	}
 }

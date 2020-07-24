@@ -1,8 +1,10 @@
 # dsy
 
+![test](https://github.com/sanshirookazaki/dsy/workflows/test/badge.svg)
+
 dsy is a library for fixtures inspired by [timakin/dsmock](https://github.com/timakin/dsmock).
 
-This is able to insert data in YAML formatted files to google cloud datastore.
+It is able to insert data in YAML formatted files to google cloud datastore.
 
 ## Install
 
@@ -88,18 +90,18 @@ scheme:
 
 entities:
   ID: 1
-  Int: 123
-  Float: 1.23
-  String: hello world
-  Bool: false
-  Null: null
-  Array: [1, 2, 3]
-  Key:
+  IntType: 123
+  FloatType: 1.23
+  StringType: hello world
+  BoolType: false
+  NullType: null
+  ArrayType: [1, 2, 3]
+  EmbedType: {"Name": "Ken", "ID": 2}
+  TimeType: 2006-01-02T15:04:05+07:00
+  GeoPointType: {"Lat": 35.6809591, "Lng": 139.7673068}
+  KeyType:
     - kind: Types
       name: key
-  Embed: {"Name": "Ken", "ID": 2}
-  Time: 2006-01-02T15:04:05+07:00
-  GeoPoint: {"Lat": 35.6809591, "Lng": 139.7673068}
 ```
 
 ## License
