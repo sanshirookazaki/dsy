@@ -52,7 +52,7 @@ err = dsy.UpsertDir(ctx, client, "path/to/fixture")
 
 If there is a property of key type, you must specify ```keys``` in scheme in YAML array.
 
-In addition, set ```kind``` and ```id``` or ```name``` in entities. (if it doesn't, load value automaticaly.) From the top, it interpret as the parent.
+In addition, set ```kind``` and ```id``` or ```name``` in entities. (if it doesn't, set scheme kind and load value into id or name automaticaly.) From the top, it interpret as the parent.
 
 If options include ```noIndex``` then the field will not be indexed. For example:
 
@@ -73,7 +73,7 @@ entities:
       name: ABC
     - kind: Writer
       id: 10
-  Role: Manager # kind: Role, Name: Manager
+  Role: Manager # kind: Article, name: Manager
   Title: Business
 ```
 
@@ -84,12 +84,11 @@ Datetime type is RFC 3339 formatted.
 ```
 scheme:
   kind: Types
-  key: ID
+  key: IntType
   keys:
     - Key
 
 entities:
-  ID: 1
   IntType: 123
   FloatType: 1.23
   StringType: hello world
