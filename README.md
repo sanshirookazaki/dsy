@@ -23,14 +23,13 @@ kind: User
 key: ID
 
 entities:
-- ID: 1
-  Name: Ryu
-  Likes: Martial arts
-- ID: 2
-  Name: Ken
-  Likes: Pasta
+  - ID: 1
+    Name: Ryu
+    Likes: Martial arts
+  - ID: 2
+    Name: Ken
+    Likes: Pasta
 ```
-
 
 ### Upsert data
 
@@ -46,6 +45,8 @@ client, _ := datastore.NewClient(ctx, "projectID")
 err = dsy.UpsertFile(ctx, client, "path/to/fixture/file.yaml")
 err = dsy.UpsertDir(ctx, client, "path/to/fixture")
 ```
+
+For information on creating a client, see [cloud.google.com/go/datastore](https://godoc.org/cloud.google.com/go/datastore).
 
 ## YAML configuration details
 
@@ -65,14 +66,14 @@ noIndex:
   - Title
 
 entities:
-  ID: 1
-  Writer:
-    - kind: Company # parent
-      name: ABC
-    - kind: Writer
-      id: 10
-  Role: Manager # kind: Article, name: Manager
-  Title: Business
+  - ID: 1
+    Writer:
+      - kind: Company # parent
+        name: ABC
+      - kind: Writer
+        id: 10
+    Role: Manager # kind: Article, name: Manager
+    Title: Business
 ```
 
 This library supports a variety of data types for property values, as shown below.
@@ -86,18 +87,18 @@ keys:
   - KeyType
 
 entities:
-  IntType: 123
-  FloatType: 1.23
-  StringType: hello world
-  BoolType: false
-  NullType: null
-  ArrayType: [1, 2, 3]
-  EmbedType: {"Name": "Ken", "ID": 2}
-  TimeType: 2006-01-02T15:04:05+07:00
-  GeoPointType: {"Lat": 35.6809591, "Lng": 139.7673068}
-  KeyType:
-    - kind: Types
-      name: key
+  - IntType: 123
+    FloatType: 1.23
+    StringType: hello world
+    BoolType: false
+    NullType: null
+    ArrayType: [1, 2, 3]
+    EmbedType: {"Name": "Ken", "ID": 2}
+    TimeType: 2006-01-02T15:04:05+07:00
+    GeoPointType: {"Lat": 35.6809591, "Lng": 139.7673068}
+    KeyType:
+      - kind: Types
+        name: key
 ```
 
 ## License
