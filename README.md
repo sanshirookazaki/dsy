@@ -16,12 +16,11 @@ go get -u github.com/sanshirookazaki/dsy
 
 ### YAML configuration
 
-A fixture YAML file must contains the information about your datastore entity with the keys: schema and entities. For example:
+A fixture YAML file must contains the information about your datastore entity with the keys. For example:
 
 ```
-scheme:
-  kind: User
-  key: ID
+kind: User
+key: ID
 
 entities:
 - ID: 1
@@ -48,23 +47,22 @@ err = dsy.UpsertFile(ctx, client, "path/to/fixture/file.yaml")
 err = dsy.UpsertDir(ctx, client, "path/to/fixture")
 ```
 
-## Other configuring the fixture
+## YAML configuration details
 
-If there is a property of key type, you must specify ```keys``` in scheme in YAML array.
+If there is a property of key type, you must specify ```keys``` in YAML array.
 
-In addition, set ```kind``` and ```id``` or ```name``` in entities. (if it doesn't, set scheme kind and load value into id or name automaticaly.) From the top, it interpret as the parent.
+In addition, set ```kind``` and ```id``` or ```name``` in entities. (if it doesn't, set kind and load value into id or name automaticaly.) From the top, it interpret as the parent.
 
 If options include ```noIndex``` then the field will not be indexed. For example:
 
 ```
-scheme:
-  kind: Article
-  key: ID
-  keys:
-    - Writer
-    - Role
-  noIndex:
-    - Title
+kind: Article
+key: ID
+keys:
+  - Writer
+  - Role
+noIndex:
+  - Title
 
 entities:
   ID: 1
@@ -82,11 +80,10 @@ This library supports a variety of data types for property values, as shown belo
 Datetime type is RFC 3339 formatted.
 
 ```
-scheme:
-  kind: Types
-  key: IntType
-  keys:
-    - Key
+kind: Types
+key: IntType
+keys:
+  - KeyType
 
 entities:
   IntType: 123
