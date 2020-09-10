@@ -64,10 +64,19 @@ func UpsertDir(ctx context.Context, client *datastore.Client, dirname string) (e
 				return err
 			}
 
-			keys, values := getKeysValues(entities)
+			allPage := int(math.Ceil(float64(len(entities)) / float64(BatchSize)))
+			for page := 0; page < allPage; page++ {
 
-			if _, err = tx.PutMulti(keys, values); err != nil {
-				return err
+				from := page * BatchSize
+				to := (page + 1) * BatchSize
+				if to > len(entities) {
+					to = len(entities)
+				}
+
+				keys, values := getKeysValues(entities, from, to)
+				if _, err = tx.PutMulti(keys, values); err != nil {
+					return err
+				}
 			}
 		}
 
