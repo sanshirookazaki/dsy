@@ -26,7 +26,7 @@ func UpsertFile(ctx context.Context, client *datastore.Client, filename string) 
 		return err
 	}
 
-	allPage := int(math.Ceil(float64(len(entities)) / float64(batchSize)))
+	allPage := int(math.Ceil(float64(len(entities)) / float64(BatchSize)))
 	for page := 0; page < allPage; page++ {
 
 		from := page * BatchSize
