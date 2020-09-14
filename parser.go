@@ -13,11 +13,13 @@ import (
 )
 
 type Data struct {
-	Kind     string   `yaml:"kind,omitempty"`
-	Key      string   `yaml:"key,omitempty"`
-	Keys     []string `yaml:"keys,omitempty"`
-	NoIndex  []string `yaml:"noIndex,omitempty"`
-	Entities []Entity `yaml:"entities,omitempty"`
+	Kind         string   `yaml:"kind,omitempty"`
+	Key          string   `yaml:"key,omitempty"`
+	Keys         []string `yaml:"keys,omitempty"`
+	NoIndex      []string `yaml:"noIndex,omitempty"`
+	TimeFormat   string   `yaml:"timeFormat,omitempty"`
+	TimeLocation string   `yaml:"timeLocation,omitempty"`
+	Entities     []Entity `yaml:"entities,omitempty"`
 }
 
 type Entity map[string]interface{}
@@ -116,10 +118,18 @@ func (p *Parser) ParseProperty(name string, value interface{}) (property *datast
 		noIndex = true
 	}
 
-	// parse time.Time
 	s, ok := value.(string)
 	if ok {
-		time, err := time.Parse(time.RFC3339, s)
+		// parse time.Time
+		location, err := time.LoadLocation(p.Data.TimeLocation)
+		if err != nil {
+			return nil, err
+		}
+		if p.Data.TimeFormat == "" {
+			p.Data.TimeFormat = time.RFC3339
+		}
+
+		time, err := time.ParseInLocation(p.Data.TimeFormat, s, location)
 		if err == nil {
 			value = time
 		}
