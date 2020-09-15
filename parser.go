@@ -125,11 +125,9 @@ func (p *Parser) ParseProperty(name string, value interface{}) (property *datast
 		if err != nil {
 			return nil, err
 		}
-		if p.Data.TimeFormat == "" {
-			p.Data.TimeFormat = time.RFC3339
-		}
 
-		time, err := time.ParseInLocation(p.Data.TimeFormat, s, location)
+		layout := parseTimeLayout(p.Data.TimeFormat)
+		time, err := time.ParseInLocation(layout, s, location)
 		if err == nil {
 			value = time
 		}
@@ -230,4 +228,41 @@ func (p *Parser) ParseKey(kind interface{}, value interface{}, parent *datastore
 	}
 
 	return key, nil
+}
+
+func parseTimeLayout(format string) string {
+	switch format {
+	case "ANSIC":
+		return time.ANSIC
+	case "UnixDate":
+		return time.UnixDate
+	case "RubyDate":
+		return time.RubyDate
+	case "RFC822":
+		return time.RFC822
+	case "RFC822Z":
+		return time.RFC822Z
+	case "RFC850":
+		return time.RFC850
+	case "RFC1123":
+		return time.RFC1123
+	case "RFC1123Z":
+		return time.RFC1123Z
+	case "RFC3339":
+		return time.RFC3339
+	case "RFC3339Nano":
+		return time.RFC3339Nano
+	case "Kitchen":
+		return time.Kitchen
+	case "Stamp":
+		return time.Stamp
+	case "StampMilli":
+		return time.StampMilli
+	case "StampMicro":
+		return time.StampMicro
+	case "StampNano":
+		return time.StampNano
+	default:
+		return time.RFC3339
+	}
 }
