@@ -2,6 +2,8 @@ kind: Type
 key: ID
 keys:
   - KeyType
+timeFormat: RFC3339
+timeLocation: UTC
 
 entities:
 - ID: 1

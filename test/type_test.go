@@ -45,7 +45,11 @@ func TestType(t *testing.T) {
 
 	pk := datastore.IDKey("Parent", 123456, nil)
 	ck := datastore.NameKey("Child", "key", pk)
-	tt, err := time.Parse(time.RFC3339, "2006-01-02T15:04:05+07:00")
+	loc, err := time.LoadLocation("UTC")
+	if err != nil {
+		t.Fatal(err)
+	}
+	tt, err := time.ParseInLocation(time.RFC3339, "2006-01-02T15:04:05+07:00", loc)
 	if err != nil {
 		t.Fatal(err)
 	}
