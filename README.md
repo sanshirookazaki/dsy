@@ -78,13 +78,17 @@ entities:
 
 This library supports a variety of data types for property values, as shown below.
 
-Datetime type is RFC 3339 formatted.
+```timeFormat``` is predefined layouts for use in time.Parse (default RFC3339), see [golang.org/pkg/time](https://golang.org/pkg/time/#pkg-constants)
+
+```timeLocation``` is taken to be a location name corresponding to a file in the IANA Time Zone database (default UTC).
 
 ```
 kind: Types
 key: IntType
 keys:
   - KeyType
+timeFormat: RFC3339
+timeLocation: UTC
 
 entities:
   - IntType: 123
