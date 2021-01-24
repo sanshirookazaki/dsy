@@ -2,11 +2,17 @@ package dsy
 
 import "reflect"
 
+// satisfyFields checks that the map[string]interface data satisfies the field names and types of the struct.
 func satisfyFields(m map[string]interface{}, s interface{}) bool {
 	switch reflect.TypeOf(s).Kind() {
 	case reflect.Struct:
 		rv := reflect.ValueOf(s)
 		rt := rv.Type()
+
+		if rt.NumField() != len(m) {
+			return false
+		}
+
 		for i := 0; i < rt.NumField(); i++ {
 			rf := rt.Field(i)
 			// check field name
@@ -14,10 +20,9 @@ func satisfyFields(m map[string]interface{}, s interface{}) bool {
 				return false
 			}
 			// check type
-			//t := fmt.Sprintf("%T", v)
-			//if t != rf.Type.Kind().String() {
-			//	return false
-			//}
+			if rf.Type != reflect.TypeOf(m[rf.Name]) {
+				return false
+			}
 		}
 		return true
 
